@@ -8,10 +8,11 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    environment: main       # Use the 'main' environment
+    environment: main  # Use the "main" environment where secrets are stored
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -20,6 +21,18 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Debug environment (no secrets exposed)
+        run: |
+          echo "ENVIRONMENT VARIABLES:"
+          printenv | sort
+          echo "TWITTER_BEARER is set: ${TWITTER_BEARER:+yes}"
+          echo "BSKY_HANDLE is set: ${BSKY_HANDLE:+yes}"
+          echo "BSKY_APP_PASSWORD is set: ${BSKY_APP_PASSWORD:+yes}"
+        env:
+          TWITTER_BEARER: ${{ secrets.TWITTER_BEARER }}
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
 
       - name: Run bot
         env:
