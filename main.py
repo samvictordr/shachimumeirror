@@ -7,10 +7,6 @@ from atproto import Client
 from atproto_client.models.app.bsky.feed.post import Record as PostRecord
 from atproto_client.models.app.bsky.embed.images import Image as EmbedImage, Main as EmbedImages
 from tweepy import Client as TwitterClient, TooManyRequests
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 # Config
 BLSKY_USERNAME = os.environ["BSKY_HANDLE"]
