@@ -63,10 +63,20 @@ def get_latest_tweet(username):
         raise Exception("No tweets found.")
 
     tweet = tweets.data[0]
-    media = tweets.includes.get("media", [])
-    media_urls = [m.url for m in media if m.type == "photo"][:MEDIA_LIMIT]
+
+    # Extract media keys from the tweet (if any)
+    media_keys = tweet.attachments["media_keys"] if "attachments" in tweet.data else []
+    media_dict = {m.media_key: m for m in tweets.includes.get("media", [])}
+
+    # Match keys to actual media
+    media_urls = [
+        media_dict[key].url
+        for key in media_keys
+        if key in media_dict and media_dict[key].type == "photo"
+    ][:MEDIA_LIMIT]
 
     return tweet.id, tweet.text, media_urls
+
 
 def upload_media_to_bluesky(media_urls):
     blobs = []
