@@ -26,13 +26,13 @@ jobs:
       - name: Run mirror script
         env:
           TWITTER_BEARER: ${{ secrets.TWITTER_BEARER }}
-          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
-          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          BSKY_HANDLE: ${{ secrets.BKSY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BKSY_APP_PASSWORD }}
         run: |
           # Debug output
           echo "TWITTER_BEARER length: ${#TWITTER_BEARER}"
-          echo "BSKY_HANDLE length: ${#BSKY_HANDLE}"
-          echo "BSKY_APP_PASSWORD length: ${#BSKY_APP_PASSWORD}"
+          echo "BSKY_HANDLE length: ${#BKSY_HANDLE}"
+          echo "BSKY_APP_PASSWORD length: ${#BKSY_APP_PASSWORD}"
           
           # Run the script
           python main.py
