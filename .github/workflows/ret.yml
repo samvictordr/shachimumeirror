@@ -1,12 +1,11 @@
-name: Update README with Tweet + Bluesky
-
+name: update
 on:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: your-env-name-here # or remove if not needed
+    environment: prod # or remove if not needed
 
     steps:
       - uses: actions/checkout@v4
