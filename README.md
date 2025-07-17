@@ -1,2 +1,2 @@
-# BLSKYBot
+# Shachimu Bluesky Mirror
 
