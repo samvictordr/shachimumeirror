@@ -1,4 +1,4 @@
-name: Bluesky Mirror Bot
+name: mirrorworkflow
 
 on:
   schedule:
