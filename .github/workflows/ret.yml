@@ -8,6 +8,7 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    environment: main       # Use the 'main' environment
 
     steps:
       - uses: actions/checkout@v4
