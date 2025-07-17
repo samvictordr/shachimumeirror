@@ -1,14 +1,17 @@
 name: update
+
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'  # runs every hour
 
 jobs:
-  build:
+  mirror:
     runs-on: ubuntu-latest
-    environment: prod # or remove if not needed
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -16,21 +19,21 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Debug secrets
+      - name: Export environment variables from secrets
+        run: |
+          echo "TWITTER_BEARER=${{ secrets.TWITTER_BEARER }}" >> $GITHUB_ENV
+          echo "BSKY_HANDLE=${{ secrets.BSKY_HANDLE }}" >> $GITHUB_ENV
+          echo "BSKY_APP_PASSWORD=${{ secrets.BSKY_APP_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Debug check if secrets are set
         run: |
           echo "TWITTER_BEARER is set: ${TWITTER_BEARER:+yes}"
-          echo "BSKY_HANDLE: '${BSKY_HANDLE}'"
-          echo "BSKY_APP_PASSWORD: '${BSKY_APP_PASSWORD}'"
-        env:
-          TWITTER_BEARER: "${{ secrets.TWITTER_BEARER }}"
-          BSKY_HANDLE: "${{ secrets.BSKY_HANDLE }}"
-          BSKY_APP_PASSWORD: "${{ secrets.BSKY_APP_PASSWORD }}"
+          echo "BSKY_HANDLE: $BSKY_HANDLE"
+          echo "BSKY_APP_PASSWORD: $BSKY_APP_PASSWORD"
 
-      - name: Run the Python script
+      - name: Run mirror script
         run: python main.py
-        env:
-          TWITTER_BEARER: "${{ secrets.TWITTER_BEARER }}"
-          BSKY_HANDLE: "${{ secrets.BSKY_HANDLE }}"
-          BSKY_APP_PASSWORD: "${{ secrets.BSKY_APP_PASSWORD }}"
