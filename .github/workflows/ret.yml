@@ -31,9 +31,9 @@ jobs:
 
       - name: Debug check if secrets are set
         run: |
-          echo "TWITTER_BEARER is set: ${TWITTER_BEARER:+yes}"
-          echo "BSKY_HANDLE: $BSKY_HANDLE"
-          echo "BSKY_APP_PASSWORD: $BSKY_APP_PASSWORD"
+          echo "TWITTER_BEARER length: ${#TWITTER_BEARER}"
+          echo "BSKY_HANDLE length: ${#BSKY_HANDLE}"
+          echo "BSKY_APP_PASSWORD length: ${#BSKY_APP_PASSWORD}"
 
       - name: Run mirror script
         run: python main.py
