@@ -13,9 +13,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Config
-BLSKY_USERNAME = os.getenv("BKSY_HANDLE")
-BLSKY_PASSWORD = os.getenv("BKSY_APP_PASSWORD")
-TWITTER_BEARER = os.getenv("TWITTER_BEARER")
+BLSKY_USERNAME = os.environ["BSKY_HANDLE"]
+BLSKY_PASSWORD = os.environ["BSKY_APP_PASSWORD"]
+TWITTER_BEARER = os.environ["TWITTER_BEARER"]
 TARGET_USERNAME = "shachimu"
 CHAR_LIMIT = 300
 MEDIA_LIMIT = 4
