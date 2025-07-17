@@ -31,8 +31,8 @@ jobs:
           echo "BSKY_APP_PASSWORD is set: ${BSKY_APP_PASSWORD:+yes}"
         env:
           TWITTER_BEARER: ${{ secrets.TWITTER_BEARER }}
-          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
-          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          BSKY_HANDLE: "${{ secrets.BSKY_HANDLE }}"
+          BSKY_APP_PASSWORD: "${{ secrets.BSKY_APP_PASSWORD }}"
 
       - name: Run bot
         env:
