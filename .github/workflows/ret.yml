@@ -29,6 +29,7 @@ jobs:
           BSKY_HANDLE: ${{ secrets.BKSY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BKSY_APP_PASSWORD }}
           GIST_ID: ${{ secrets.GIST_ID }}
+          GIST_ACCESS: ${{ secrets.GIST_ACCESS }}
         run: |
           # Debug output
           echo "TWITTER_BEARER length: ${#TWITTER_BEARER}"
