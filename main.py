@@ -15,17 +15,42 @@ TWITTER_BEARER = os.environ["TWITTER_BEARER"]
 TARGET_USERNAME = "shachimu"
 CHAR_LIMIT = 300
 MEDIA_LIMIT = 4
-CACHE_FILE = "cache.json"
+
+# Gist cache config
+GIST_ID = os.environ["GIST_ID"]
+GIST_FILENAME = "cache.json"
+GIST_TOKEN = os.environ["GIST_TOKEN"]
 
 def load_cache():
-    if not os.path.exists(CACHE_FILE):
+    url = f"https://api.github.com/gists/{GIST_ID}"
+    headers = {
+        "Authorization": f"token {GIST_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    resp = requests.get(url, headers=headers)
+    if resp.status_code != 200:
+        print(f"❌ Failed to fetch Gist cache: {resp.status_code} {resp.text}")
         return {"last_tweet_id": None}
-    with open(CACHE_FILE, "r") as f:
-        return json.load(f)
+    content = resp.json()["files"][GIST_FILENAME]["content"]
+    return json.loads(content)
 
 def save_cache(cache_data):
-    with open(CACHE_FILE, "w") as f:
-        json.dump(cache_data, f, indent=2)
+    url = f"https://api.github.com/gists/{GIST_ID}"
+    headers = {
+        "Authorization": f"token {GIST_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    payload = {
+        "files": {
+            GIST_FILENAME: {
+                "content": json.dumps(cache_data, indent=2)
+            }
+        }
+    }
+    resp = requests.patch(url, headers=headers, json=payload)
+    if resp.status_code != 200:
+        print(f"❌ Failed to update Gist cache: {resp.status_code} {resp.text}")
+        raise Exception("Failed to update cache on Gist")
 
 # Init clients
 twitter = TwitterClient(bearer_token=TWITTER_BEARER)
