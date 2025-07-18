@@ -18,8 +18,8 @@ MEDIA_LIMIT = 4
 
 # Gist cache config
 GIST_ID = os.environ["GIST_ID"]
-GIST_FILENAME = "cache.json"
-GIST_TOKEN = os.environ["GIST_TOKEN"]
+GIST_FILENAME = "tweet_cache.json"
+GIST_TOKEN = os.environ["GIST_ACCESS"]
 
 def load_cache():
     url = f"https://api.github.com/gists/{GIST_ID}"
