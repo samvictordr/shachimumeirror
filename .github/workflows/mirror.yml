@@ -33,8 +33,6 @@ jobs:
         run: |
           # Debug output
           echo "TWITTER_BEARER length: ${#TWITTER_BEARER}"
-          echo "BSKY_HANDLE length: ${#BKSY_HANDLE}"
-          echo "BSKY_APP_PASSWORD length: ${#BKSY_APP_PASSWORD}"
           
           # Run the script
-          python main.py
+          python mirror.py
