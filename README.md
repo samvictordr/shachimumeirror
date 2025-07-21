@@ -1,5 +1,6 @@
 ## Bluesky Mirror
-[![Check for & Post Recent Tweets](https://github.com/samvictordr/shachimumeirror/actions/workflows/mirror.yml/badge.svg)](https://github.com/samvictordr/shachimumeirror/actions/workflows/mirror.yml)
+> [!CAUTION]
+> While it does not explicitly violate Bluesky's Terms of Service, automated bots and mirror accounts **may still be flagged or taken down** at any time. Use responsibly. 
 
 ## A GitHub Actions-based mirror that cross-posts from X to Bluesky, purely serverless.
 
